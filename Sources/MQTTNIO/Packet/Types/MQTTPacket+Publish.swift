@@ -73,7 +73,7 @@ extension MQTTPacket {
                     guard let string = packet.data.readString(length: packet.data.readableBytes) else {
                         throw MQTTProtocolError("Invalid string payload")
                     }
-                    payload = .string(string, contentType: properties.contentType)
+                    payload = .string(string, contentType2: properties.contentType2)
                 } else {
                     payload = .bytes(packet.data.slice())
                 }
@@ -188,7 +188,7 @@ extension MQTTPacket {
             \.$correlationData
             \.$userProperties
             \.$subscriptionIdentifiers
-            \.$contentType
+            \.$contentType2
         }
         
         private var properties: MQTTProperties {
@@ -198,9 +198,9 @@ extension MQTTPacket {
             case .empty, .bytes:
                 properties.payloadFormatIsUTF8 = false
                 
-            case .string(_, let contentType):
+            case .string(_, let contentType2):
                 properties.payloadFormatIsUTF8 = true
-                properties.contentType = contentType
+                properties.contentType2 = contentType2
             }
             
             properties.messageExpiryInterval = message.properties.expiryInterval
