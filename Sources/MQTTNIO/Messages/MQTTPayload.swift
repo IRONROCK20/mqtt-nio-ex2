@@ -7,7 +7,7 @@ public enum MQTTPayload: MQTTSendable, ExpressibleByStringLiteral, CustomDebugSt
     /// A payload in bytes.
     case bytes(ByteBuffer)
     /// A UTF-8 string payload with an optional content type.
-    case string(String, contentType: String? = nil)
+    case string(String, contentType2: String? = nil)
     
     /// The payload parsed as an UTF-8 string.
     public var string: String? {
@@ -24,20 +24,20 @@ public enum MQTTPayload: MQTTSendable, ExpressibleByStringLiteral, CustomDebugSt
     }
     
     /// The content type of the payload, or `nil` if it is unknown.
-    public var contentType: String? {
+    public var contentType2: String? {
         switch self {
         case .empty, .bytes:
             return nil
             
-        case .string(_, let contentType):
-            return contentType
+        case .string(_, let contentType2):
+            return contentType2
         }
     }
     
     // MARK: - ExpressibleByStringLiteral
     
     public init(stringLiteral value: String) {
-        self = .string(value, contentType: nil)
+        self = .string(value, contentType2: nil)
     }
     
     // MARK: - CustomDebugStringConvertible
@@ -53,10 +53,10 @@ public enum MQTTPayload: MQTTSendable, ExpressibleByStringLiteral, CustomDebugSt
             }
             return "\(buffer.readableBytes) bytes"
             
-        case .string(let string, contentType: let contentType?):
-            return "\(contentType): \(string)"
+        case .string(let string, contentType2: let contentType2?):
+            return "\(contentType2): \(string)"
             
-        case .string(let string, contentType: nil):
+        case .string(let string, contentType2: nil):
             return string
         }
     }
