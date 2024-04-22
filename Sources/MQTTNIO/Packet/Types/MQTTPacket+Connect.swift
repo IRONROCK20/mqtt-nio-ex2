@@ -52,9 +52,9 @@ extension MQTTPacket {
             case .empty, .bytes:
                 properties.payloadFormatIsUTF8 = false
                 
-            case .string(_, let contentType):
+            case .string(_, let contentType2):
                 properties.payloadFormatIsUTF8 = true
-                properties.contentType = contentType
+                properties.contentType2 = contentType2
             }
             
             properties.willDelayInterval = message.properties.delayInterval
