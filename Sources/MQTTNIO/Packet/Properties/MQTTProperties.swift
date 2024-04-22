@@ -11,7 +11,7 @@ struct MQTTProperties: MQTTSendable {
     var messageExpiryInterval: TimeAmount?
     
     @MQTTProperty(0x03)
-    var contentType: String?
+    var contentType2: String?
     
     @MQTTProperty(0x08)
     var responseTopic: String?
